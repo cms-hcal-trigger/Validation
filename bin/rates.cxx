@@ -208,11 +208,8 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
 
   std::string axR = ";Threshold E_{T} (GeV);rate (Hz)";
   std::string axD = ";E_{T} (GeV);events/bin";
-  std::string axET = ";E_{T} (GeV);Events / bin";
-  std::string axHT = ";H_{T} (GeV);Events / bin";
-  std::string axMET = ";MET (GeV);Events / bin";
-  std::string axMHT = ";MHT (GeV);Events / bin";
-  std::string axMETHF = ";MET HF (GeV);Events / bin";
+  std::string axS = ";Scalar Sum (GeV);Events / bin";
+  std::string axV = ";Vector Sum (GeV);Events / bin";
 
   //make histos
   TH1F* singleJetRates_emu = new TH1F("singleJetRates_emu", axR.c_str(), nJetBins, jetLo, jetHi);
@@ -232,11 +229,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
   TH1F* etSumRates_emu = new TH1F("etSumRates_emu",axR.c_str(), nEtSumBins, etSumLo, etSumHi);
   TH1F* metSumRates_emu = new TH1F("metSumRates_emu",axR.c_str(), nMetSumBins, metSumLo, metSumHi); 
   TH1F* metHFSumRates_emu = new TH1F("metHFSumRates_emu",axR.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
-  TH1F* htSum_emu = new TH1F("htSum_emu",axHT.c_str(), nHtSumBins, htSumLo, htSumHi);
-  TH1F* mhtSum_emu = new TH1F("mhtSum_emu",axMHT.c_str(), nMhtSumBins, mhtSumLo, mhtSumHi);
-  TH1F* etSum_emu = new TH1F("etSum_emu",axET.c_str(), nEtSumBins, etSumLo, etSumHi);
-  TH1F* metSum_emu = new TH1F("metSum_emu",axMET.c_str(), nMetSumBins, metSumLo, metSumHi); 
-  TH1F* metHFSum_emu = new TH1F("metHFSum_emu",axMETHF.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
+  TH1F* htSum_emu = new TH1F("htSum_emu",axS.c_str(), nHtSumBins, htSumLo, htSumHi);
+  TH1F* mhtSum_emu = new TH1F("mhtSum_emu",axV.c_str(), nMhtSumBins, mhtSumLo, mhtSumHi);
+  TH1F* etSum_emu = new TH1F("etSum_emu",axS.c_str(), nEtSumBins, etSumLo, etSumHi);
+  TH1F* metSum_emu = new TH1F("metSum_emu",axV.c_str(), nMetSumBins, metSumLo, metSumHi); 
+  TH1F* metHFSum_emu = new TH1F("metHFSum_emu",axV.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
   
   TH1F* singleJetRates_hw = new TH1F("singleJetRates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
   TH1F* doubleJetRates_hw = new TH1F("doubleJetRates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
@@ -255,11 +252,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
   TH1F* etSumRates_hw = new TH1F("etSumRates_hw",axR.c_str(), nEtSumBins, etSumLo, etSumHi);
   TH1F* metSumRates_hw = new TH1F("metSumRates_hw",axR.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
   TH1F* metHFSumRates_hw = new TH1F("metHFSumRates_hw",axR.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
-  TH1F* htSum_hw = new TH1F("htSum_hw",axHT.c_str(), nHtSumBins, htSumLo, htSumHi);
-  TH1F* mhtSum_hw = new TH1F("mhtSum_hw",axMHT.c_str(), nMhtSumBins, mhtSumLo, mhtSumHi);
-  TH1F* etSum_hw = new TH1F("etSum_hw",axET.c_str(), nEtSumBins, etSumLo, etSumHi);
-  TH1F* metSum_hw = new TH1F("metSum_hw",axMET.c_str(), nMetSumBins, metSumLo, metSumHi); 
-  TH1F* metHFSum_hw = new TH1F("metHFSum_hw",axMETHF.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
+  TH1F* htSum_hw = new TH1F("htSum_hw",axS.c_str(), nHtSumBins, htSumLo, htSumHi);
+  TH1F* mhtSum_hw = new TH1F("mhtSum_hw",axV.c_str(), nMhtSumBins, mhtSumLo, mhtSumHi);
+  TH1F* etSum_hw = new TH1F("etSum_hw",axS.c_str(), nEtSumBins, etSumLo, etSumHi);
+  TH1F* metSum_hw = new TH1F("metSum_hw",axV.c_str(), nMetSumBins, metSumLo, metSumHi); 
+  TH1F* metHFSum_hw = new TH1F("metHFSum_hw",axV.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
 
   TH1F* hcalTP_emu = new TH1F("hcalTP_emu", ";TP E_{T}; # Entries", nTpBins, tpLo, tpHi);
   TH1F* ecalTP_emu = new TH1F("ecalTP_emu", ";TP E_{T}; # Entries", nTpBins, tpLo, tpHi);
