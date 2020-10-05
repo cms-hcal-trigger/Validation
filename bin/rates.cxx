@@ -208,6 +208,8 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
 
   std::string axR = ";Threshold E_{T} (GeV);rate (Hz)";
   std::string axD = ";E_{T} (GeV);events/bin";
+  std::string axS = ";Scalar Sum (GeV);Events / bin";
+  std::string axV = ";Vector Sum (GeV);Events / bin";
 
   //make histos
   TH1F* singleJetRates_emu = new TH1F("singleJetRates_emu", axR.c_str(), nJetBins, jetLo, jetHi);
@@ -227,6 +229,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
   TH1F* etSumRates_emu = new TH1F("etSumRates_emu",axR.c_str(), nEtSumBins, etSumLo, etSumHi);
   TH1F* metSumRates_emu = new TH1F("metSumRates_emu",axR.c_str(), nMetSumBins, metSumLo, metSumHi); 
   TH1F* metHFSumRates_emu = new TH1F("metHFSumRates_emu",axR.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
+  TH1F* htSum_emu = new TH1F("htSum_emu",axS.c_str(), nHtSumBins, htSumLo, htSumHi);
+  TH1F* mhtSum_emu = new TH1F("mhtSum_emu",axV.c_str(), nMhtSumBins, mhtSumLo, mhtSumHi);
+  TH1F* etSum_emu = new TH1F("etSum_emu",axS.c_str(), nEtSumBins, etSumLo, etSumHi);
+  TH1F* metSum_emu = new TH1F("metSum_emu",axV.c_str(), nMetSumBins, metSumLo, metSumHi); 
+  TH1F* metHFSum_emu = new TH1F("metHFSum_emu",axV.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
   
   TH1F* singleJetRates_hw = new TH1F("singleJetRates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
   TH1F* doubleJetRates_hw = new TH1F("doubleJetRates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
@@ -245,6 +252,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
   TH1F* etSumRates_hw = new TH1F("etSumRates_hw",axR.c_str(), nEtSumBins, etSumLo, etSumHi);
   TH1F* metSumRates_hw = new TH1F("metSumRates_hw",axR.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
   TH1F* metHFSumRates_hw = new TH1F("metHFSumRates_hw",axR.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
+  TH1F* htSum_hw = new TH1F("htSum_hw",axS.c_str(), nHtSumBins, htSumLo, htSumHi);
+  TH1F* mhtSum_hw = new TH1F("mhtSum_hw",axV.c_str(), nMhtSumBins, mhtSumLo, mhtSumHi);
+  TH1F* etSum_hw = new TH1F("etSum_hw",axS.c_str(), nEtSumBins, etSumLo, etSumHi);
+  TH1F* metSum_hw = new TH1F("metSum_hw",axV.c_str(), nMetSumBins, metSumLo, metSumHi); 
+  TH1F* metHFSum_hw = new TH1F("metHFSum_hw",axV.c_str(), nMetHFSumBins, metHFSumLo, metHFSumHi); 
 
   TH1F* hcalTP_emu = new TH1F("hcalTP_emu", ";TP E_{T}; # Entries", nTpBins, tpLo, tpHi);
   TH1F* ecalTP_emu = new TH1F("ecalTP_emu", ";TP E_{T}; # Entries", nTpBins, tpLo, tpHi);
@@ -357,6 +369,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
 	  if( l1emu_->sumType[c] == L1Analysis::kMissingEtHF ) metHFSum = l1emu_->sumEt[c];
           if( l1emu_->sumType[c] == L1Analysis::kMissingHt ) mhtSum = l1emu_->sumEt[c];
       }
+      htSum_emu->Fill(htSum);
+      mhtSum_emu->Fill(mhtSum);
+      etSum_emu->Fill(etSum);
+      metSum_emu->Fill(metSum);
+      metHFSum_emu->Fill(metHFSum);
 
       // for each bin fill according to whether our object has a larger corresponding energy
       for(int bin=0; bin<nJetBins; bin++){
@@ -541,6 +558,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
 	  if( l1hw_->sumType[c] == L1Analysis::kMissingEtHF ) metHFSum = l1hw_->sumEt[c];
           if( l1hw_->sumType[c] == L1Analysis::kMissingHt ) mhtSum = l1hw_->sumEt[c];
       }
+      htSum_hw->Fill(htSum);
+      mhtSum_hw->Fill(mhtSum);
+      etSum_hw->Fill(etSum);
+      metSum_hw->Fill(metSum);
+      metHFSum_hw->Fill(metHFSum);
 
       // for each bin fill according to whether our object has a larger corresponding energy
       for(int bin=0; bin<nJetBins; bin++){
@@ -661,6 +683,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
     etSumRates_emu->Write();
     metSumRates_emu->Write();
     metHFSumRates_emu->Write();
+    htSum_emu->Write();
+    mhtSum_emu->Write();
+    etSum_emu->Write();
+    metSum_emu->Write();
+    metHFSum_emu->Write();
   }
 
   if (hwOn){
@@ -702,6 +729,12 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
     etSumRates_hw->Write();
     metSumRates_hw->Write();
     metHFSumRates_hw->Write();
+    htSum_hw->Write();
+    mhtSum_hw->Write();
+    etSum_hw->Write();
+    metSum_hw->Write();
+    metHFSum_hw->Write();
+
   }
   myfile << "using the following ntuple: " << inputFile << std::endl;
   myfile << "number of colliding bunches = " << numBunch << std::endl;
