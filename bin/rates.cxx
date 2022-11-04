@@ -322,11 +322,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
       double egISOEt_2 = 0;
       //EG pt's are not given in descending order...bx?
       for (UInt_t c=0; c<l1emu_->nEGs; c++){
-        if (l1emu_->egEt[c] > egISOEt_1 && l1emu_->egIso[c]==1){
+        if (l1emu_->egEt[c] > egISOEt_1 && (l1emu_->egIso[c]==1 || l1emu_->egIso[c]==3)){
           egISOEt_2 = egISOEt_1;
           egISOEt_1 = l1emu_->egEt[c];
         }
-        else if (l1emu_->egEt[c] <= egISOEt_1 && l1emu_->egEt[c] > egISOEt_2 && l1emu_->egIso[c]==1){
+        else if (l1emu_->egEt[c] <= egISOEt_1 && l1emu_->egEt[c] > egISOEt_2 && (l1emu_->egIso[c]==1 || l1emu_->egIso[c]==3)){
           egISOEt_2 = l1emu_->egEt[c];
         }
       }
@@ -505,11 +505,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
       double egISOEt_2 = 0;
       //EG pt's are not given in descending order...bx?
       for (UInt_t c=0; c<l1hw_->nEGs; c++){
-        if (l1hw_->egBx[c]==0 && l1hw_->egEt[c] > egISOEt_1 && l1hw_->egIso[c]==1){
+        if (l1hw_->egBx[c]==0 && l1hw_->egEt[c] > egISOEt_1 && (l1hw_->egIso[c]==1 || l1hw_->egIso[c]==3)){
           egISOEt_2 = egISOEt_1;
           egISOEt_1 = l1hw_->egEt[c];
         }
-        else if (l1hw_->egBx[c]==0 && l1hw_->egEt[c] <= egISOEt_1 && l1hw_->egEt[c] > egISOEt_2 && l1hw_->egIso[c]==1){
+        else if (l1hw_->egBx[c]==0 && l1hw_->egEt[c] <= egISOEt_1 && l1hw_->egEt[c] > egISOEt_2 && (l1hw_->egIso[c]==1 || l1hw_->egIso[c]==3)){
           egISOEt_2 = l1hw_->egEt[c];
         }
       }
