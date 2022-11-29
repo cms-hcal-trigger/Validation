@@ -214,6 +214,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
   TH1F* doubleJetRates_emu = new TH1F("doubleJetRates_emu", axR.c_str(), nJetBins, jetLo, jetHi);
   TH1F* tripleJetRates_emu = new TH1F("tripleJetRates_emu", axR.c_str(), nJetBins, jetLo, jetHi);
   TH1F* quadJetRates_emu = new TH1F("quadJetRates_emu", axR.c_str(), nJetBins, jetLo, jetHi);
+  TH1F* singleJetLLPRates_emu = new TH1F("singleJetLLPRates_emu", axR.c_str(), nJetBins, jetLo, jetHi);
+  TH1F* singleJetLLP_HTT120Rates_emu = new TH1F("singleJetLLP_HTT120Rates_emu", axR.c_str(), nJetBins, jetLo, jetHi);
+  TH1F* singleJetLLP_HTT160Rates_emu = new TH1F("singleJetLLP_HTT160Rates_emu", axR.c_str(), nJetBins, jetLo, jetHi);
+  TH1F* singleJetLLP_HTT200Rates_emu = new TH1F("singleJetLLP_HTT200Rates_emu", axR.c_str(), nJetBins, jetLo, jetHi);
+  TH1F* singleJetLLP_HTT240Rates_emu = new TH1F("singleJetLLP_HTT240Rates_emu", axR.c_str(), nJetBins, jetLo, jetHi);
   TH1F* singleEgRates_emu = new TH1F("singleEgRates_emu", axR.c_str(), nEgBins, egLo, egHi);
   TH1F* doubleEgRates_emu = new TH1F("doubleEgRates_emu", axR.c_str(), nEgBins, egLo, egHi);
   TH1F* singleTauRates_emu = new TH1F("singleTauRates_emu", axR.c_str(), nTauBins, tauLo, tauHi);
@@ -232,6 +237,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
   TH1F* doubleJetRates_hw = new TH1F("doubleJetRates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
   TH1F* tripleJetRates_hw = new TH1F("tripleJetRates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
   TH1F* quadJetRates_hw = new TH1F("quadJetRates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
+  TH1F* singleJetLLPRates_hw = new TH1F("singleJetLLPRates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
+  TH1F* singleJetLLP_HTT120Rates_hw = new TH1F("singleJetLLP_HTT120Rates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
+  TH1F* singleJetLLP_HTT160Rates_hw = new TH1F("singleJetLLP_HTT160Rates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
+  TH1F* singleJetLLP_HTT200Rates_hw = new TH1F("singleJetLLP_HTT200Rates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
+  TH1F* singleJetLLP_HTT240Rates_hw = new TH1F("singleJetLLP_HTT240Rates_hw", axR.c_str(), nJetBins, jetLo, jetHi);
   TH1F* singleEgRates_hw = new TH1F("singleEgRates_hw", axR.c_str(), nEgBins, egLo, egHi);
   TH1F* doubleEgRates_hw = new TH1F("doubleEgRates_hw", axR.c_str(), nEgBins, egLo, egHi);
   TH1F* singleTauRates_hw = new TH1F("singleTauRates_hw", axR.c_str(), nTauBins, tauLo, tauHi);
@@ -256,6 +266,7 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
   // loop through all the entries//
   /////////////////////////////////
   for (Long64_t jentry=0; jentry<nentries; jentry++){
+    //if(jentry > 100)continue;
     if((jentry%10000)==0) std::cout << "Done " << jentry  << " events of " << nentries << std::endl;
 
 
@@ -291,6 +302,12 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
       if (l1emu_->nJets>1) jetEt_2 = l1emu_->jetEt[1];
       if (l1emu_->nJets>2) jetEt_3 = l1emu_->jetEt[2];
       if (l1emu_->nJets>3) jetEt_4 = l1emu_->jetEt[3];       
+
+      double jetEt_LLP = 0;
+      for (uint jetIt = 0; jetIt < l1emu_->nJets; jetIt++) {
+	if (jetEt_LLP > 0) continue;
+	if (l1emu_->jetHwQual[jetIt] > 0) jetEt_LLP = l1emu_->jetEt[jetIt];
+      }
       
       double egEt_1 = 0;
       double egEt_2 = 0;
@@ -374,7 +391,26 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
       for(int bin=0; bin<nJetBins; bin++){
         if( (jetEt_4) >= jetLo + (bin*jetBinWidth) ) quadJetRates_emu->Fill(jetLo+(bin*jetBinWidth));  //GeV
       }  
+
+      for(int bin=0; bin<nJetBins; bin++){
+        if( (jetEt_LLP) >= jetLo + (bin*jetBinWidth) ) singleJetLLPRates_emu->Fill(jetLo+(bin*jetBinWidth));  //GeV
+      } 
              
+      for(int bin=0; bin<nJetBins; bin++){
+        if( htSum >= 120){
+          if( (jetEt_LLP) >= jetLo + (bin*jetBinWidth) ) singleJetLLP_HTT120Rates_emu->Fill(jetLo+(bin*jetBinWidth));  //GeV
+	}
+        if( htSum >= 160){
+          if( (jetEt_LLP) >= jetLo + (bin*jetBinWidth) ) singleJetLLP_HTT160Rates_emu->Fill(jetLo+(bin*jetBinWidth));  //GeV
+	}
+        if( htSum >= 200){
+          if( (jetEt_LLP) >= jetLo + (bin*jetBinWidth) ) singleJetLLP_HTT200Rates_emu->Fill(jetLo+(bin*jetBinWidth));  //GeV
+	}
+        if( htSum >= 240){
+          if( (jetEt_LLP) >= jetLo + (bin*jetBinWidth) ) singleJetLLP_HTT240Rates_emu->Fill(jetLo+(bin*jetBinWidth));  //GeV
+	}
+      } 
+
       for(int bin=0; bin<nEgBins; bin++){
         if( (egEt_1) >= egLo + (bin*egBinWidth) ) singleEgRates_emu->Fill(egLo+(bin*egBinWidth));  //GeV
       } 
@@ -477,6 +513,12 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
         }
       }
 
+      double jetEt_LLP = 0;
+      for (uint jetIt = 0; jetIt < l1hw_->nJets; jetIt++) {
+	if (l1hw_->jetBx[jetIt]==0 && l1hw_->jetHwQual[jetIt] > 0 && l1hw_->jetEt[jetIt] > jetEt_LLP) jetEt_LLP = l1hw_->jetEt[jetIt];
+      }
+
+
       double egEt_1 = 0;
       double egEt_2 = 0;
       for (UInt_t c=0; c<l1hw_->nEGs; c++){
@@ -558,6 +600,25 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
       for(int bin=0; bin<nJetBins; bin++){
         if( (jetEt_4) >= jetLo + (bin*jetBinWidth) ) quadJetRates_hw->Fill(jetLo+(bin*jetBinWidth));  //GeV
       }  
+
+      for(int bin=0; bin<nJetBins; bin++){
+        if( (jetEt_LLP) >= jetLo + (bin*jetBinWidth) ) singleJetLLPRates_hw->Fill(jetLo+(bin*jetBinWidth));  //GeV
+      } 
+             
+      for(int bin=0; bin<nJetBins; bin++){
+        if( htSum >= 120){
+          if( (jetEt_LLP) >= jetLo + (bin*jetBinWidth) ) singleJetLLP_HTT120Rates_hw->Fill(jetLo+(bin*jetBinWidth));  //GeV
+	}
+        if( htSum >= 160){
+          if( (jetEt_LLP) >= jetLo + (bin*jetBinWidth) ) singleJetLLP_HTT160Rates_hw->Fill(jetLo+(bin*jetBinWidth));  //GeV
+	}
+        if( htSum >= 200){
+          if( (jetEt_LLP) >= jetLo + (bin*jetBinWidth) ) singleJetLLP_HTT200Rates_hw->Fill(jetLo+(bin*jetBinWidth));  //GeV
+	}
+        if( htSum >= 240){
+          if( (jetEt_LLP) >= jetLo + (bin*jetBinWidth) ) singleJetLLP_HTT240Rates_hw->Fill(jetLo+(bin*jetBinWidth));  //GeV
+	}
+      } 
              
       for(int bin=0; bin<nEgBins; bin++){
         if( (egEt_1) >= egLo + (bin*egBinWidth) ) singleEgRates_hw->Fill(egLo+(bin*egBinWidth));  //GeV
@@ -625,6 +686,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
     doubleJetRates_emu->Scale(norm);
     tripleJetRates_emu->Scale(norm);
     quadJetRates_emu->Scale(norm);
+    singleJetLLPRates_emu->Scale(norm);
+    singleJetLLP_HTT120Rates_emu->Scale(norm);
+    singleJetLLP_HTT160Rates_emu->Scale(norm);
+    singleJetLLP_HTT200Rates_emu->Scale(norm);
+    singleJetLLP_HTT240Rates_emu->Scale(norm);
     singleEgRates_emu->Scale(norm);
     doubleEgRates_emu->Scale(norm);
     singleTauRates_emu->Scale(norm);
@@ -648,6 +714,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
     doubleJetRates_emu->Write();
     tripleJetRates_emu->Write();
     quadJetRates_emu->Write();
+    singleJetLLPRates_emu->Write();
+    singleJetLLP_HTT120Rates_emu->Write();
+    singleJetLLP_HTT160Rates_emu->Write();
+    singleJetLLP_HTT200Rates_emu->Write();
+    singleJetLLP_HTT240Rates_emu->Write();
     singleEgRates_emu->Write();
     doubleEgRates_emu->Write();
     singleTauRates_emu->Write();
@@ -669,6 +740,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
     doubleJetRates_hw->Scale(norm);
     tripleJetRates_hw->Scale(norm);
     quadJetRates_hw->Scale(norm);
+    singleJetLLPRates_hw->Scale(norm);
+    singleJetLLP_HTT120Rates_hw->Scale(norm);
+    singleJetLLP_HTT160Rates_hw->Scale(norm);
+    singleJetLLP_HTT200Rates_hw->Scale(norm);
+    singleJetLLP_HTT240Rates_hw->Scale(norm);
     singleEgRates_hw->Scale(norm);
     doubleEgRates_hw->Scale(norm);
     singleTauRates_hw->Scale(norm);
@@ -689,6 +765,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
     doubleJetRates_hw->Write();
     tripleJetRates_hw->Write();
     quadJetRates_hw->Write();
+    singleJetLLPRates_hw->Write();
+    singleJetLLP_HTT120Rates_hw->Write();
+    singleJetLLP_HTT160Rates_hw->Write();
+    singleJetLLP_HTT200Rates_hw->Write();
+    singleJetLLP_HTT240Rates_hw->Write();
     singleEgRates_hw->Write();
     doubleEgRates_hw->Write();
     singleTauRates_hw->Write();
