@@ -23,16 +23,17 @@ int main()
   // default, then new conditions
   std::vector<std::string> filenames = {"rates_def.root", "rates_new_cond.root"};
   std::vector<std::string> rateTypes = {"singleJet", "doubleJet", "tripleJet", "quadJet",
-					"singleJetLLP", "singleJetLLP_HTT120", "singleJetLLP_HTT160", "singleJetLLP_HTT200", "singleJetLLP_HTT240",
+					"singleJetLLP", "doubleJetLLP", "singleJetLLP_HTT120", "singleJetLLP_HTT160", "singleJetLLP_HTT200", "singleJetLLP_HTT240",
 					"singleEg", "singleISOEg", "doubleEg", "doubleISOEg",
 					"singleTau", "singleISOTau", "doubleTau", "doubleISOTau",
 					"htSum", "etSum", "metSum", "metHFSum"};
   std::map<std::string, int> histColor;
   histColor["singleJet"] = histColor["singleJetLLP"] = histColor["singleEg"] = histColor["singleTau"] = histColor["etSum"] = histColor["metSum"] = kRed;
-  histColor["doubleJet"] = histColor["singleJetLLP_HTT120"] = histColor["singleISOEg"] = histColor["singleISOTau"] = histColor["htSum"] = histColor["metHFSum"] = kBlue;
-  histColor["tripleJet"] = histColor["singleJetLLP_HTT160"] = histColor["doubleEg"] = histColor["doubleTau"] = kGreen;
-  histColor["quadJet"] = histColor["singleJetLLP_HTT200"] = histColor["doubleISOEg"] = histColor["doubleISOTau"] = kBlack;
-  histColor["singleJetLLP_HTT240"] = kMagenta;
+  histColor["doubleJet"] = histColor["doubleJetLLP"] = histColor["singleISOEg"] = histColor["singleISOTau"] = histColor["htSum"] = histColor["metHFSum"] = kBlue;
+  histColor["tripleJet"] = histColor["singleJetLLP_HTT120"] = histColor["doubleEg"] = histColor["doubleTau"] = kGreen;
+  histColor["quadJet"] = histColor["singleJetLLP_HTT160"] = histColor["doubleISOEg"] = histColor["doubleISOTau"] = kBlack;
+  histColor["singleJetLLP_HTT200"] = kMagenta;
+  histColor["singleJetLLP_HTT240"] = kCyan;
 
   std::map<std::string, TH1F*> rateHists_def;
   std::map<std::string, TH1F*> rateHists_new_cond;
@@ -79,7 +80,7 @@ int main()
   for(auto pair : rateHists_def) pair.second->SetLineStyle(kDotted);
 
   std::vector<std::string> jetPlots = {"singleJet", "doubleJet", "tripleJet", "quadJet"};
-  std::vector<std::string> jetLLPPlots = {"singleJetLLP", "singleJetLLP_HTT120", "singleJetLLP_HTT160", "singleJetLLP_HTT200", "singleJetLLP_HTT240"};
+  std::vector<std::string> jetLLPPlots = {"singleJetLLP", "doubleJetLLP", "singleJetLLP_HTT120", "singleJetLLP_HTT160", "singleJetLLP_HTT200", "singleJetLLP_HTT240"};
   std::vector<std::string> egPlots = {"singleEg", "singleISOEg", "doubleEg", "doubleISOEg"};
   std::vector<std::string> tauPlots = {"singleTau", "singleISOTau", "doubleTau", "doubleISOTau"};
   std::vector<std::string> scalarSumPlots = {"etSum", "htSum"};
