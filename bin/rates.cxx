@@ -4,6 +4,7 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TH1F.h"
+#include "TH2F.h"
 #include "TChain.h"
 #include <iostream>
 #include <fstream>
@@ -113,7 +114,6 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
   // if(binByPileUp){
   //   vtxTree->Add(inputFile.c_str());
   // }
-
 
   TChain * treeL1TPemu = new TChain("l1CaloTowerEmuTree/L1CaloTowerTree");
   if (emuOn){
@@ -264,6 +264,9 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
   TH1F* hcalTP_hw = new TH1F("hcalTP_hw", ";TP E_{T}; # Entries", nTpBins, tpLo, tpHi);
   TH1F* ecalTP_hw = new TH1F("ecalTP_hw", ";TP E_{T}; # Entries", nTpBins, tpLo, tpHi);
 
+  TH2F* nHcalTP_vs_nVtx_emu = new TH2F("nHcalTP_vs_nVtx_emu", ";# TPs; # Vtx", 80, 300, 1100, 80, 0.5, 80.5);
+  TH2F* nHcalTP_vs_nVtx_hw = new TH2F("nHcalTP_vs_nVtx_hw", ";# TPs; # Vtx", 80, 300, 1100, 80, 0.5, 80.5);
+
   /////////////////////////////////
   // loop through all the entries//
   /////////////////////////////////
@@ -283,16 +286,19 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
 
       treeL1TPemu->GetEntry(jentry);
       double tpEt(0.);
-      
+     
+      int nHCALTP_eta4(0); 
       for(int i=0; i < l1TPemu_->nHCALTP; i++){
 	tpEt = l1TPemu_->hcalTPet[i];
 	hcalTP_emu->Fill(tpEt);
+	if (abs(l1TPemu_->hcalTPieta[i])<36)nHCALTP_eta4 = nHCALTP_eta4 + 1;
       }
       for(int i=0; i < l1TPemu_->nECALTP; i++){
 	tpEt = l1TPemu_->ecalTPet[i];
 	ecalTP_emu->Fill(tpEt);
       }
 
+      nHcalTP_vs_nVtx_emu->Fill(nHCALTP_eta4,event_->nPV);
       treeL1emu->GetEntry(jentry);
       // get jetEt*, egEt*, tauEt, htSum, mhtSum, etSum, metSum
       // ALL EMU OBJECTS HAVE BX=0...
@@ -483,16 +489,18 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
       treeL1TPhw->GetEntry(jentry);
       double tpEt(0.);
       
+      int nHCALTP_eta4(0); 
       for(int i=0; i < l1TPhw_->nHCALTP; i++){
 	tpEt = l1TPhw_->hcalTPet[i];
 	hcalTP_hw->Fill(tpEt);
+	if (abs(l1TPhw_->hcalTPieta[i])<36)nHCALTP_eta4 = nHCALTP_eta4 + 1;
       }
       for(int i=0; i < l1TPhw_->nECALTP; i++){
 	tpEt = l1TPhw_->ecalTPet[i];
 	ecalTP_hw->Fill(tpEt);
       }
 
-
+      nHcalTP_vs_nVtx_hw->Fill(nHCALTP_eta4,event_->nPV);
       treeL1hw->GetEntry(jentry);
       // get jetEt*, egEt*, tauEt, htSum, mhtSum, etSum, metSum
       // ***INCLUDES NON_ZERO bx*** can't just read values off
@@ -722,6 +730,7 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
     etSumRates_emu->Scale(norm);
     metSumRates_emu->Scale(norm);
     metHFSumRates_emu->Scale(norm);
+    nHcalTP_vs_nVtx_emu->Scale(norm);
 
     //set the errors for the rates
     //want error -> error * sqrt(norm) ?
@@ -751,6 +760,7 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
     etSumRates_emu->Write();
     metSumRates_emu->Write();
     metHFSumRates_emu->Write();
+    nHcalTP_vs_nVtx_emu->Write();
   }
 
   if (hwOn){
@@ -778,6 +788,7 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
     etSumRates_hw->Scale(norm);
     metSumRates_hw->Scale(norm);
     metHFSumRates_hw->Scale(norm);
+    nHcalTP_vs_nVtx_hw->Scale(norm);
 
     hcalTP_hw->Write();
     ecalTP_hw->Write();
@@ -804,6 +815,7 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
     etSumRates_hw->Write();
     metSumRates_hw->Write();
     metHFSumRates_hw->Write();
+    nHcalTP_vs_nVtx_emu->Write();
   }
   myfile << "using the following ntuple: " << inputFile << std::endl;
   myfile << "number of colliding bunches = " << numBunch << std::endl;
