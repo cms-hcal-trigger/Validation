@@ -264,8 +264,8 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
   TH1F* hcalTP_hw = new TH1F("hcalTP_hw", ";TP E_{T}; # Entries", nTpBins, tpLo, tpHi);
   TH1F* ecalTP_hw = new TH1F("ecalTP_hw", ";TP E_{T}; # Entries", nTpBins, tpLo, tpHi);
 
-  TH2F* nHcalTP_vs_nVtx_emu = new TH2F("nHcalTP_vs_nVtx_emu", ";# TPs; # Vtx", 80, 300, 1100, 80, 0.5, 80.5);
-  TH2F* nHcalTP_vs_nVtx_hw = new TH2F("nHcalTP_vs_nVtx_hw", ";# TPs; # Vtx", 80, 300, 1100, 80, 0.5, 80.5);
+  TH2F* nHcalTP_vs_nVtx_emu = new TH2F("nHcalTP_vs_nVtx_emu", ";# TPs; # Vtx", 80, 300, 1100, 80, -0.5, 79.5);
+  TH2F* nHcalTP_vs_nVtx_hw = new TH2F("nHcalTP_vs_nVtx_hw", ";# TPs; # Vtx", 80, 300, 1100, 80, -0.5, 79.5);
 
   /////////////////////////////////
   // loop through all the entries//
