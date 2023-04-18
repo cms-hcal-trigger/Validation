@@ -815,7 +815,7 @@ void rates(bool newConditions, const std::string& inputFileDirectory){
     etSumRates_hw->Write();
     metSumRates_hw->Write();
     metHFSumRates_hw->Write();
-    nHcalTP_vs_nVtx_emu->Write();
+    nHcalTP_vs_nVtx_hw->Write();
   }
   myfile << "using the following ntuple: " << inputFile << std::endl;
   myfile << "number of colliding bunches = " << numBunch << std::endl;
