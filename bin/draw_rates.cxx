@@ -1,6 +1,6 @@
 #include "PhysicsTools/Utilities/macros/setTDRStyle.C"
 //#include "Alignment/OfflineValidation/macros/CMS_lumi.h"
-#include "HcalTrigger/Validation/macros/CMS_lumi.h"
+//#include "HcalTrigger/Validation/macros/CMS_lumi.h"
 
 #include "TCanvas.h"
 #include "TH1.h"
