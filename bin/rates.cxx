@@ -266,7 +266,7 @@ void rates(bool newConditions, const std::string& inputFileDirectory, bool inclu
   TH1F* singleJetRates_emu = new TH1F("singleJetRates_emu", axR.c_str(), nJetBins1, edges1);
   TH1F* doubleJetRates_emu = new TH1F("doubleJetRates_emu", axR.c_str(), nJetBins1, edges1);
   TH1F* tripleJetRates_emu = new TH1F("tripleJetRates_emu", axR.c_str(), nJetBins3, edges3);
-  TH1F* quadJetRates_emu = new TH1F("quadJetRates_emu", axR.c_str(), nJetBins4, edges4)
+  TH1F* quadJetRates_emu = new TH1F("quadJetRates_emu", axR.c_str(), nJetBins4, edges4);
 
   TH1F* singleJetLLPRates_emu = new TH1F("singleJetLLPRates_emu", axR.c_str(), nJetBins1, edges1);
   TH1F* doubleJetLLPRates_emu = new TH1F("doubleJetLLPRates_emu", axR.c_str(), nJetBins1, edges1);
@@ -418,8 +418,8 @@ void rates(bool newConditions, const std::string& inputFileDirectory, bool inclu
         }
 
         if (jetEt_LLP_2 > 0) continue;
-        if (l1emu_->jetHwQual[jetIt] > 0 && jetEt_LLP_1 > 0) jetEt_LLP_2 = l1emu_->jetEt[jetIt];
-        if (l1emu_->jetHwQual[jetIt] > 0 && jetEt_LLP_1 == 0) jetEt_LLP_1 = l1emu_->jetEt[jetIt];	      
+        if (l1emu_->jetHwQual[i] > 0 && jetEt_LLP_1 > 0) jetEt_LLP_2 = l1emu_->jetEt[i];
+        if (l1emu_->jetHwQual[i] > 0 && jetEt_LLP_1 == 0) jetEt_LLP_1 = l1emu_->jetEt[i];	      
       }
 
       double egEt_1 = 0;
@@ -584,16 +584,16 @@ void rates(bool newConditions, const std::string& inputFileDirectory, bool inclu
 
       for(int bin=0; bin<nJetBins1; bin++){
         if( htSum >= 120){
-          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT120Rates_emu->Fill(edges[1]);  //GeV
+          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT120Rates_emu->Fill(edges1[1]);  //GeV
         }
 	if( htSum >= 160){
-          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT160Rates_emu->Fill(edges[1]);  //GeV
+          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT160Rates_emu->Fill(edges1[1]);  //GeV
         }
 	if( htSum >= 200){
-          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT200Rates_emu->Fill(edges[1]);  //GeV
+          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT200Rates_emu->Fill(edges1[1]);  //GeV
         }
 	if( htSum >= 240){
-          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT240Rates_emu->Fill(edges[1]);  //GeV
+          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT240Rates_emu->Fill(edges1[1]);  //GeV
         }	
       }
 	    
@@ -742,11 +742,11 @@ void rates(bool newConditions, const std::string& inputFileDirectory, bool inclu
           jetEt_4 = l1hw_->jetEt[i];
         }
 
-        if (l1hw_->jetBx[jetIt]==0 && l1hw_->jetHwQual[jetIt] > 0 && l1hw_->jetEt[jetIt] > jetEt_LLP_1){
+        if (l1hw_->jetBx[i]==0 && l1hw_->jetHwQual[i] > 0 && l1hw_->jetEt[i] > jetEt_LLP_1){
           jetEt_LLP_2 = jetEt_LLP_1;
-          jetEt_LLP_1 = l1hw_->jetEt[jetIt];
+          jetEt_LLP_1 = l1hw_->jetEt[i];
         }
-        else if (l1hw_->jetBx[jetIt]==0 && l1hw_->jetHwQual[jetIt] > 0 && l1hw_->jetEt[jetIt] <= jetEt_LLP_1 && l1hw_->jetEt[jetIt] > jetEt_LLP_2) jetEt_LLP_2 = l1hw_->jetEt[jetIt];
+        else if (l1hw_->jetBx[i]==0 && l1hw_->jetHwQual[i] > 0 && l1hw_->jetEt[i] <= jetEt_LLP_1 && l1hw_->jetEt[i] > jetEt_LLP_2) jetEt_LLP_2 = l1hw_->jetEt[i];
 	      
       }
 
@@ -914,16 +914,16 @@ void rates(bool newConditions, const std::string& inputFileDirectory, bool inclu
 
       for(int bin=0; bin<nJetBins1; bin++){
         if( htSum >= 120){
-          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT120Rates_hw->Fill(edges[1]);  //GeV
+          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT120Rates_hw->Fill(edges1[1]);  //GeV
         }
 	if( htSum >= 160){
-          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT160Rates_hw->Fill(edges[1]);  //GeV
+          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT160Rates_hw->Fill(edges1[1]);  //GeV
         }
 	if( htSum >= 200){
-          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT200Rates_hw->Fill(edges[1]);  //GeV
+          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT200Rates_hw->Fill(edges1[1]);  //GeV
         }
 	if( htSum >= 240){
-          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT240Rates_hw->Fill(edges[1]);  //GeV
+          if( (jetEt_LLP_1) >= edges1[bin] ) singleJetLLP_HTT240Rates_hw->Fill(edges1[1]);  //GeV
         }	
       }	    
             
