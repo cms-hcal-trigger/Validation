@@ -95,7 +95,7 @@ void rates(bool newConditions, const std::string& inputFileDirectory, bool inclu
   f_PUweight->Close();*/
 
   std::string inputFile(inputFileDirectory);
-  inputFile += "/L1rates_*.root";
+  //inputFile += "/L1rates_*.root";
   std::string outputDirectory = "emu";  //***runNumber, triggerType, version, hw/emu/both***MAKE SURE IT EXISTS
   std::string outputFilename = "rates_def.root";
   std::cout << newConditions << std::endl;
