@@ -1,4 +1,4 @@
-#include "PhysicsTools/Utilities/macros/setTDRStyle.C"
+//#include "PhysicsTools/Utilities/macros/setTDRStyle.C"
 //#include "Alignment/OfflineValidation/macros/CMS_lumi.h"
 //#include "HcalTrigger/Validation/macros/CMS_lumi.h"
 
@@ -22,7 +22,7 @@ int main()
   bool includeHW = false;
   //int rebinFactor = 1;
 
-  setTDRStyle();
+//  setTDRStyle();
   gROOT->ForceStyle();
 
   gStyle->SetErrorX(0.5);
