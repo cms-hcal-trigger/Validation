@@ -1,4 +1,4 @@
-#include "PhysicsTools/Utilities/macros/setTDRStyle.C"
+//#include "PhysicsTools/Utilities/macros/setTDRStyle.C"
 
 #include "TCanvas.h"
 #include "TH1.h"
@@ -19,7 +19,7 @@ int main()
   bool includeHW = false;
   int rebinFactor = 1;
 
-  setTDRStyle();
+//  setTDRStyle();
   gROOT->ForceStyle();
   
   // default, then new conditions
