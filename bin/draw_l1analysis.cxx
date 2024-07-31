@@ -20,7 +20,7 @@ int main()
   int rebinFactor = 1;
 
 //  setTDRStyle();
-  gROOT->ForceStyle();
+  //gROOT->ForceStyle();
   
   // default, then new conditions
   std::vector<std::string> filenames = {"l1analysis_def.root", "l1analysis_new_cond.root"};
