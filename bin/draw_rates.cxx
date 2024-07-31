@@ -25,7 +25,7 @@ int main()
 //  setTDRStyle();
   gROOT->ForceStyle();
 
-  gStyle->SetErrorX(0.5);
+  //gStyle->SetErrorX(0.5);
 
   // default, then new conditions
   std::vector<std::string> filenames = {"rates_def.root", "rates_new_cond.root"};
